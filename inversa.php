@@ -12,13 +12,16 @@
         <div class="card mt-3">
             <div class="card-body">
                 <?php
-                $numero = 10;
+                // Si el usuario ha enviado un número...
+                if (isset($_POST['limite'])) {
+                    $numero = $_POST['limite']; // Cogemos lo que ha escrito
                 echo "<p><strong>Ascendente:</strong> ";
                 for ($i = 1; $i <= $numero; $i++) { echo $i . " "; }
                 echo "</p>";
                 echo "<p><strong>Descendente:</strong> ";
                 for ($i = $numero; $i >= 1; $i--) { echo $i . " "; }
                 echo "</p>";
+                }
                 ?>
             </div>
         </div>

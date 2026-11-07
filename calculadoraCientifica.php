@@ -1,0 +1,15 @@
+<?php
+require_once 'Calculadora.php'; // Esto le dice que use el molde anterior
+
+class CalculadoraCientifica extends Calculadora {
+    public function potencia($base, $exponente) {
+        return pow($base, $exponente);
+    }
+    public function raizCuadrada($numero) {
+        if ($numero < 0) {
+            throw new Exception("No se puede calcular la raíz de un número negativo.");
+        }
+        return sqrt($numero);
+    }
+}
+?>
