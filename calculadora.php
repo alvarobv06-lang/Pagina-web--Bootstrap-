@@ -1,51 +1,57 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Calculadora</title>
+    <title>Calculadora Fácil</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <?php include 'menu.php'; ?>
-    
-    <div class="container">
-        <h2>Calculadora</h2>
+
+    <h2>Calculadora en PHP</h2>
+
+    <!-- El formulario envía los datos a la misma página usando el método POST -->
+    <form method="POST">
+        <input type="number" step="any" name="num1" placeholder="Número 1" required>
         
+        <select name="operacion">
+            <option value="+">Sumar (+)</option>
+            <option value="-">Restar (-)</option>
+            <option value="*">Multiplicar (*)</option>
+            <option value="/">Dividir (/)</option>
+        </select>
+
+        <input type="number" step="any" name="num2" placeholder="Número 2" required>
         
-        <form method="POST">
-            <label>Número 1:</label>
-            <input type="number" name="num1" class="form-control mb-2" required>
-            
-            <label>Número 2:</label>
-            <input type="number" name="num2" class="form-control mb-2" required>
-            
-            <button type="submit" class="btn btn-info">Calcular</button>
-        </form>
+        <button type="submit">Calcular</button>
+    </form>
 
-        <br>
+    <hr>
 
-             <?php
-        // Línea 29: Ahora que el archivo existe, esto ya no dará error
-        require_once 'Calculadora.php'; 
+    <?php
+    // Si el usuario ha pulsado el botón de calcular...
+    if (isset($_POST['num1']) && isset($_POST['num2'])) {
+        
 
-        if (isset($_POST['num1']) && isset($_POST['num2'])) {
-            $num1 = $_POST['num1'];
-            $num2 = $_POST['num2'];
-            
-            $calc = new Calculadora(); // Línea 36
-
-            echo '<ul class="list-group">';
-            try {
-                echo '<li class="list-group-item">Suma: ' . $calc->sumar($num1, $num2) . '</li>';
-                echo '<li class="list-group-item">Resta: ' . $calc->restar($num1, $num2) . '</li>';
-                echo '<li class="list-group-item">Multiplicación: ' . $calc->multiplicar($num1, $num2) . '</li>';
-                echo '<li class="list-group-item">División: ' . $calc->dividir($num1, $num2) . '</li>';
-            } catch (Exception $e) {
-                echo '<li class="list-group-item list-group-item-danger">Error: ' . $e->getMessage() . '</li>';
+        // Hacemos la operación matemática
+        if ($op == "+") {
+            $resultado = $n1 + $n2;
+        } elseif ($op == "-") {
+            $resultado = $n1 - $n2;
+        } elseif ($op == "*") {
+            $resultado = $n1 * $n2;
+        } elseif ($op == "/") {
+            // Comprobamos que no se divida entre 0
+            if ($n2 == 0) {
+                $resultado = "Error: No se puede dividir entre 0";
+            } else {
+                $resultado = $n1 / $n2;
             }
-            echo '</ul>';
         }
-        ?>
-    </div>
+
+        // Mostramos el resultado en pantalla
+        echo "<h3>Resultado: $resultado</h3>";
+    }
+    ?>
+
 </body>
 </html>
+
